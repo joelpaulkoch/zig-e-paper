@@ -1,8 +1,7 @@
 const std = @import("std");
 const microzig = @import("microzig");
 const rp2040 = microzig.hal;
-const time = rp2040.time;
-// const config = @import("config.zig");
+const gpio = rp2040.gpio;
 
 const pin_config = rp2040.pins.GlobalConfiguration{
     .GPIO8 = .{ .name = "EPD_DC_PIN", .direction = .out },
@@ -25,12 +24,17 @@ const pin_config = rp2040.pins.GlobalConfiguration{
     },
 };
 
-pub fn main() !void {
+pub fn init() Pins(config) {
+    // stdio_init_all();
+
     const pins = pin_config.apply();
     pins.EPD_DC_PIN.put(1);
+    // gpio.put(pins.EPD_DC_PIN, 1);
+    // spi_init(SPI_PORT, 4000 * 1000);
 
-    while (true) {
-        pins.led.toggle();
-        time.sleepMs(2000);
-    }
+    // gpio.setFunction(pin_config.GPIO10, .spi);
+    // gpio.setFunction(pin_config.GPIO11, .spi);
+
+    // printf("DEV_Module_Init OK \r\n");
+    return pins;
 }

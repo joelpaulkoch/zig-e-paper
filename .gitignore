@@ -6,3 +6,5 @@ zig-out/
 /build-*/
 /docgen_tmp/
 deps
+c_deps
+c_libs
